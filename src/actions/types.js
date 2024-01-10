@@ -9,7 +9,3 @@ export const SET_POKEMONS = "SET_POKEMONS";
 // };
 
 // Con return implícito
-export const setPokemons = (pokemons) => ({
-    type: SET_POKEMONS,
-    payload: pokemons
-})
