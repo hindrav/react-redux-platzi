@@ -1,21 +1,23 @@
-import { PokemonCard } from "./PokemonCard";
+// PokemonList.jsx
+import PokemonCard  from "./PokemonCard";
 import "./PokemonList.css";
 
 const PokemonList = ({ pokemons }) =>{
+    if (!pokemons || pokemons.length === 0) return null;
     return (
         <div className="pokemonList">
-            {pokemons?.map((pokemon) => {
-                return <PokemonCard name={pokemon.name} key={pokemon.name} image={pokemon.sprites.front_default} abilities={pokemon.abilities}/>
-            })}
+            {pokemons.map((pokemon) => (
+                <PokemonCard
+                    name={pokemon.name}
+                    key={pokemon.name}
+                    image={pokemon.sprites.front_default}
+                    abilities={pokemon.abilities}
+                    id={pokemon.id}
+                    favorite={pokemon.favorite}
+                />
+            ))}
         </div>
     );
 };
 
-PokemonList.defaultProps = {
-    pokemons: Array(10).fill(''),
-};
-
-export { PokemonList }
-
-
-
+export { PokemonList };

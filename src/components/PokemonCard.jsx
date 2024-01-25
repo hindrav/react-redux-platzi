@@ -1,27 +1,29 @@
-import { StarOutlined } from "@ant-design/icons";
-import { Card } from "antd";
-import Meta from "antd/es/card/Meta";
 import React from "react";
+import { Card } from "antd";
+import { FavoriteButton } from "./FavoriteButton";
+import { useDispatch } from "react-redux";
+import { setFavorite } from "../actions";
+import Meta from "antd/es/card/Meta";
 
-const PokemonCard = ({ name, image, abilities }) => {
+const PokemonCard = ({ name, image, abilities, id, favorite}) => {
+  const dispatch = useDispatch();
+  const renderAbilities = abilities?.map((ability) => ability.ability.name).join(", ");
+
+  const handleOnFavorite = () => {
+    dispatch(setFavorite({ pokemonId: id }));
+  };
+
   return (
     <Card
       title={name}
-      cover={
-        <img
-          src={image}
-          alt={name}
-        />
-      }
-      extra=<StarOutlined />
+      cover={<img src={image} alt={name} />}
+      extra={<FavoriteButton isFavorite={favorite} onClick={handleOnFavorite}/>}
     >
-      <Meta description={renderAbilities(abilities)} />
+      <Meta description={renderAbilities} />
     </Card>
   );
 };
 
-const renderAbilities = (abilities) => {
-  return abilities?.map(ability => ability.ability.name).join(', ');
-}
-
-export { PokemonCard };
+export default React.memo(PokemonCard, (prevProps, nextProps) => {
+  return prevProps.isFavorite === nextProps.isFavorite;
+});
