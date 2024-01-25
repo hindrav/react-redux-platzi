@@ -4,14 +4,14 @@ import { Col } from "antd";
 import { Spin } from 'antd';
 import { PokemonList } from "./components/PokemonList";
 import { getPokemonsWithDetails, setLoading } from "./actions";
-import logo from "./statics/logo.svg";
 import { getPokemons } from "./api";
 import { useDispatch, useSelector } from "react-redux";
+import logo from "./statics/logo.svg";
 import "./App.css";
 
 function App() {
-  const pokemons = useSelector((state) => state.pokemons);
-  const loading = useSelector((state) => state.loading);
+  const pokemons = useSelector((state) => state.get('pokemons')).toJS();
+  const loading = useSelector((state) => state.get('loading'));
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchPokemons = async () => {
